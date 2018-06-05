@@ -3,15 +3,27 @@ package com.ahaliulang.work;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Record extends RealmObject{
+public class Record extends RealmObject {
 
+
+    @PrimaryKey
+    private long id;
 
     private String date;
 
     private String week;
 
-    private String time;
+    private String beforeTime;
 
+    private String afterTime;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getDate() {
         return date;
@@ -21,12 +33,20 @@ public class Record extends RealmObject{
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
+    public String getBeforeTime() {
+        return beforeTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setBeforeTime(String beforeTime) {
+        this.beforeTime = beforeTime;
+    }
+
+    public String getAfterTime() {
+        return afterTime;
+    }
+
+    public void setAfterTime(String afterTime) {
+        this.afterTime = afterTime;
     }
 
     public String getWeek() {
