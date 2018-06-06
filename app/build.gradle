@@ -9,11 +9,26 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-
+        ndk {
+            abiFilters "armeabi-v7a"
+            //指定要ndk需要兼容的架构(这样其他依赖包里armeabi-v7a，mips,x86,armeabi,arm-v8, "arm64-v8a"之类的so会被过滤掉)
+        }
     }
+
+    signingConfigs {
+        release {
+            storeFile file('tantiago.jks')
+            storePassword "jks336699"
+            keyAlias "ahaliulang"
+            keyPassword "jks336699"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

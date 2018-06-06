@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (!TextUtils.isEmpty(records.get(0).getBeforeTime())) {
                 beforeBtn.setText("已打卡_" + records.get(0).getBeforeTime());
                 beforeBtn.setClickable(false);
+                beforeBtn.setBackgroundResource(R.drawable.unclicked);
             }
 
             if (!TextUtils.isEmpty(records.get(0).getAfterTime())) {
                 afterBtn.setText("已打卡_" + records.get(0).getAfterTime());
                 afterBtn.setClickable(false);
+                afterBtn.setBackgroundResource(R.drawable.unclicked);
             }
         }
     }
@@ -87,9 +89,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             index = allRecords.size();
                             myAdapter.notifyDataSetChanged();
                             beforeBtn.setClickable(false);
+                            beforeBtn.setBackgroundResource(R.drawable.unclicked);
+                            beforeBtn.setText("已打卡_" + beforeTime);
                         }
                     });
-                    beforeBtn.setText("已打卡_" + beforeTime);
+
                 } else {
                     Toast.makeText(MainActivity.this, "太迟了，笨蛋", Toast.LENGTH_SHORT).show();
                 }
@@ -119,9 +123,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             index = allRecords.size();
                             myAdapter.notifyDataSetChanged();
                             afterBtn.setClickable(false);
+                            afterBtn.setText("已打卡_" + afterTime);
+                            afterBtn.setBackgroundResource(R.drawable.unclicked);
                         }
                     });
-                    afterBtn.setText("已打卡_" + afterTime);
                 } else {
                     Toast.makeText(MainActivity.this, "还不到下班时间哦", Toast.LENGTH_SHORT).show();
                 }

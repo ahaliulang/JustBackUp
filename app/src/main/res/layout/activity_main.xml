@@ -33,7 +33,9 @@
 
         <Button
             android:id="@+id/before_btn"
-            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/clicked"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="打卡" />
     </LinearLayout>
@@ -54,8 +56,10 @@
 
         <Button
             android:id="@+id/after_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/clicked"
             android:text="打卡" />
     </LinearLayout>
 
