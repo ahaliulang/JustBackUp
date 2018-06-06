@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         realm = Realm.getDefaultInstance();
         allRecords = realm.where(Record.class).findAll();
