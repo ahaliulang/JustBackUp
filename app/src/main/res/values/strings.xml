@@ -4,4 +4,8 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="egg_left">剩余%s个</string>
+    <string name="yogurt_left">剩余%s瓶</string>
+    <string name="egg_loss">损耗%s个</string>
+    <string name="yogurt_loss">损耗%s瓶</string>
 </resources>

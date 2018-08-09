@@ -1,5 +1,6 @@
 package com.ahaliulang.work;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button afterBtn;
     private TextView dateTv;
     private ListView monthList;
+    private TextView mCountTv;
 
     private long index;
     private Realm realm;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    	setTheme(R.style.AppTheme);
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         realm = Realm.getDefaultInstance();
         allRecords = realm.where(Record.class).findAll();
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dateTv = findViewById(R.id.date_tv);
         dateTv.setText(new SimpleDateFormat("yyyy年MM月dd日").format(new Date()));
         monthList = findViewById(R.id.month_list);
+        mCountTv = findViewById(R.id.count_day);
+        mCountTv.setText("第" + String.valueOf(TimeUtil.countDays() + 1) + "天");
         monthList.setAdapter(myAdapter);
     }
 
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initListener() {
         beforeBtn.setOnClickListener(this);
         afterBtn.setOnClickListener(this);
+        mCountTv.setOnClickListener(this);
     }
 
     @Override
@@ -131,6 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Toast.makeText(MainActivity.this, "还不到下班时间哦", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.count_day:
+                startActivity(new Intent(this,SecondActivity.class));
                 break;
         }
     }
