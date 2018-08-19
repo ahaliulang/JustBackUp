@@ -185,6 +185,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                             Egg first = mRealm.where(Egg.class).findFirst();
                             eggLeftTv.setText(String.format(getString(R.string.egg_left), first.getLeft()));
                             eggLossTv.setText(String.format(getString(R.string.egg_loss), first.getLoss()));
+                            eggResetNum.setText("");
                         }
                     });
 
@@ -247,6 +248,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                             Yogurt first = mRealm.where(Yogurt.class).findFirst();
                             yogurtLeftTv.setText(String.format(getString(R.string.yogurt_left), first.getLeft()));
                             yogurtLossTv.setText(String.format(getString(R.string.yogurt_loss), first.getLoss()));
+                            yogurtResetNum.setText("");
                         }
                     });
 
@@ -297,9 +299,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                         goToBed.setClickable(false);
                         goToBed.setBackgroundResource(R.drawable.unclicked);
                         goToBed.setText("入睡时间_" + goToBedTime);
-                        if (!TimeUtil.goToBedTooLate()) {
-                            Toast.makeText(SecondActivity.this, "狗命重要啊，要早睡啊", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(SecondActivity.this, "狗命重要啊，要早睡啊", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -321,19 +321,18 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                         wakeUp.setClickable(false);
                         wakeUp.setText("起床时间_" + wakeUpTime);
                         wakeUp.setBackgroundResource(R.drawable.unclicked);
-                        if (!TimeUtil.wakeUpTooLate()) {
-                            Toast.makeText(SecondActivity.this, "你是猪吗？现在才起床", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(SecondActivity.this, "今天又是元气满满的一天呢", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 break;
             case R.id.change_reset:
-                if(resetType == 0){
+                if (resetType == 0) {
                     resetType = 1;
-                    Toast.makeText(this,"切换重置类型为损耗",Toast.LENGTH_SHORT).show();
-                }else {
+                    Toast.makeText(this, "切换重置类型为损耗", Toast.LENGTH_SHORT).show();
+                } else {
                     resetType = 0;
-                    Toast.makeText(this,"切换重置类型为剩余",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "切换重置类型为剩余", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

@@ -77,7 +77,7 @@ public class TimeUtil {
     public static int countDays() {
         try {
             Calendar startCalendar = Calendar.getInstance();
-            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2018-08-10"));
+            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2018-08-20"));
             Calendar endCalendar = Calendar.getInstance();
             endCalendar.setTime(new Date());
             return getDaysBetween(startCalendar, endCalendar);
