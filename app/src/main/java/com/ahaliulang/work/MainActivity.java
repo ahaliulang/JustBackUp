@@ -138,7 +138,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.count_day:
-                startActivity(new Intent(this,SecondActivity.class));
+                // startActivity(new Intent(this,SecondActivity.class));
+                //Toast.makeText(MainActivity.this,"距离2018年09月01日已过去" + (TimeUtil.countDays()) +"天",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this,ShareCardActivity.class));
                 break;
         }
     }

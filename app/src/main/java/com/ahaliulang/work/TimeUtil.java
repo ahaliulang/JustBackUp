@@ -77,7 +77,7 @@ public class TimeUtil {
     public static int countDays() {
         try {
             Calendar startCalendar = Calendar.getInstance();
-            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2018-08-20"));
+            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2018-09-01"));
             Calendar endCalendar = Calendar.getInstance();
             endCalendar.setTime(new Date());
             return getDaysBetween(startCalendar, endCalendar);
@@ -87,12 +87,26 @@ public class TimeUtil {
         }
     }
 
-    public static int countDays(String dend){
+    public static int countDays(String date) {
         try {
             Calendar startCalendar = Calendar.getInstance();
-            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2018-08-10"));
+            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2018-09-01"));
             Calendar endCalendar = Calendar.getInstance();
-            endCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse(dend));
+            endCalendar.setTime(new Date());
+            return getDaysBetween(startCalendar, endCalendar);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+
+    public static int countShareDays(){
+        try {
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2019-01-19"));
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTime(new Date());
             return getDaysBetween(startCalendar, endCalendar);
         } catch (ParseException e) {
             e.printStackTrace();
