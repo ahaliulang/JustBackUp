@@ -104,7 +104,7 @@ public class TimeUtil {
     public static int countShareDays(){
         try {
             Calendar startCalendar = Calendar.getInstance();
-            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2019-01-19"));
+            startCalendar.setTime((new SimpleDateFormat("yyyy-MM-dd")).parse("2019-01-18"));
             Calendar endCalendar = Calendar.getInstance();
             endCalendar.setTime(new Date());
             return getDaysBetween(startCalendar, endCalendar);

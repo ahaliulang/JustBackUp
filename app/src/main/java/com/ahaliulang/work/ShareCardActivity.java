@@ -47,6 +47,8 @@ public class ShareCardActivity extends AppCompatActivity {
     private Button changeAvatarBtn;
     private Button changeBgBtn;
     private Button changeContentBtn;
+    private Button addBtn;
+    private Button subBtn;
     private EditText qrEditText;
     private EditText contentEditText;
     private TextView shareTextView;
@@ -61,6 +63,7 @@ public class ShareCardActivity extends AppCompatActivity {
     private int mAvatarIndex;
     private int mBgIndex;
     private int mContentIndex;
+    private int mCountDays;
 
 
     @Override
@@ -82,6 +85,7 @@ public class ShareCardActivity extends AppCompatActivity {
         mBgList.add(bg);
         mAvatarList.add(avatar);
         mCardStyleInfo.bitmapInfos = bitmapInfos;
+        mCountDays = TimeUtil.countShareDays();
         mCardStyleInfo.day = String.valueOf(TimeUtil.countShareDays());
         mCardStyleInfo.introduction = "Why are you trying so hard to fit in when you are born to stand out?\n" +
                 "你本就生而不凡，为何还要拼命去融入大众呢？";
@@ -123,6 +127,8 @@ public class ShareCardActivity extends AppCompatActivity {
         changeAvatarBtn = findViewById(R.id.change_avatar_btn);
         changeBgBtn = findViewById(R.id.change_bg_btn);
         changeContentBtn = findViewById(R.id.change_content);
+        addBtn = findViewById(R.id.add_btn);
+        subBtn = findViewById(R.id.sub_btn);
     }
 
     private void initListener() {
@@ -202,6 +208,23 @@ public class ShareCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openAlbum();
+            }
+        });
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                mCardStyleInfo.day = String.valueOf(++mCountDays);
+                buildShareCard();
+            }
+        });
+        subBtn.setOnClickListener(new View.OnClickListener() {
+
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                mCardStyleInfo.day = String.valueOf(--mCountDays);
+                buildShareCard();
             }
         });
     }
@@ -299,11 +322,14 @@ public class ShareCardActivity extends AppCompatActivity {
             imagePath = uri.getPath();
         }
         Glide.with(this).load(imagePath).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                mPreImageView.setImageBitmap(resource);
+                //mPreImageView.setImageBitmap(resource);
                 mAvatarList.add(resource);
                 mBgList.add(resource);
+                mCardStyleInfo.bitmapInfos.set(0,resource);
+                buildShareCard();
             }
         });
     }
