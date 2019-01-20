@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ahaliulang.work.bean.CardStyleInfo;
 import com.ahaliulang.work.bean.CibaBean;
 import com.ahaliulang.work.network.Network;
 import com.bumptech.glide.Glide;
@@ -51,6 +52,7 @@ public class ShareCardActivity extends AppCompatActivity {
     private Button subBtn;
     private EditText qrEditText;
     private EditText contentEditText;
+    private EditText authorEditText;
     private TextView shareTextView;
     private CardStyleInfo mCardStyleInfo;
     private ImageView mPreImageView;
@@ -122,6 +124,7 @@ public class ShareCardActivity extends AppCompatActivity {
         buildBtn = findViewById(R.id.build_btn);
         qrEditText = findViewById(R.id.qr_edit);
         contentEditText = findViewById(R.id.content_edit);
+        authorEditText = findViewById(R.id.author_edit);
         shareTextView = findViewById(R.id.share_text_view);
         mPreImageView = findViewById(R.id.preview_image_view);
         changeAvatarBtn = findViewById(R.id.change_avatar_btn);
@@ -160,6 +163,15 @@ public class ShareCardActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                if (!TextUtils.isEmpty(qrEditText.getText().toString())) {
+                    mCardStyleInfo.qrUrl = qrEditText.getText().toString();
+                }
+                if(!TextUtils.isEmpty(authorEditText.getText().toString())){
+                    mCardStyleInfo.author = authorEditText.getText().toString();
+                }
+                if(!TextUtils.isEmpty(contentEditText.getText().toString())){
+                    mCardStyleInfo.introduction = contentEditText.getText().toString();
+                }
                 buildShareCard();
                 Toast.makeText(ShareCardActivity.this, "生成卡片成功", Toast.LENGTH_SHORT).show();
             }
@@ -169,7 +181,12 @@ public class ShareCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(contentEditText.getText().toString())) {
-                    mContentList.add(3, contentEditText.getText().toString());
+                    if(mContentList.size() == 3){
+                        mContentList.add( contentEditText.getText().toString());
+                    }else if(mContentList.size() > 3){
+                        mContentList.set(3, contentEditText.getText().toString());
+                    }
+
                 }
                 mContentIndex = (++mContentIndex) % mContentList.size();
                 mCardStyleInfo.introduction = mContentList.get(mContentIndex);
@@ -231,9 +248,6 @@ public class ShareCardActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void buildShareCard() {
-        if (!TextUtils.isEmpty(qrEditText.getText().toString())) {
-            mCardStyleInfo.qrUrl = qrEditText.getText().toString();
-        }
         mShareBitmap = BitmapUtil.generateCardNoWorksStyle(ShareCardActivity.this, mCardStyleInfo);
         if (mShareBitmap != null) {
             mPreImageView.setImageBitmap(mShareBitmap);

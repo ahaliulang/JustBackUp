@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="50dp">
 
         <RelativeLayout
             android:id="@+id/title_bar"
@@ -184,6 +185,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="编辑文本内容"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/author_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="编辑作者名字"
                 android:textColor="#333333"
                 android:textSize="16sp" />
 

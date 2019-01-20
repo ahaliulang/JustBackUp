@@ -11,7 +11,6 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
@@ -20,6 +19,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 
+import com.ahaliulang.work.bean.CardStyleInfo;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -73,10 +73,8 @@ public class BitmapUtil {
         int left = (resultWidth - 606) / 2;
         int top = 138;
         int right = (resultWidth - 606) / 2 + 606;
-        int bottom = 140+ 1116;
-        canvas.drawRoundRect(left,top,right,bottom,15,15,paint);
-
-
+        int bottom = 140 + 1116;
+        canvas.drawRoundRect(left, top, right, bottom, 15, 15, paint);
 
 
         //获取头像
@@ -110,7 +108,7 @@ public class BitmapUtil {
         paint.setFakeBoldText(true);
         paint.setTextAlign(Paint.Align.LEFT);
 
-        int textMaxWidth = resultWidth - 340;
+        int textMaxWidth = resultWidth - 280;
         String ellipsizeNickname = TextUtils.ellipsize(cardStyleInfo.day, paint, textMaxWidth, TextUtils.TruncateAt.END).toString();
         float v = paint.measureText(ellipsizeNickname);
         int nickLeft = (int) ((resultWidth - v) / 2);
@@ -125,12 +123,30 @@ public class BitmapUtil {
         paint.setTextSize(32);
         paint.setFakeBoldText(false);
 
+
         if (!TextUtils.isEmpty(cardStyleInfo.introduction)) {
-            StaticLayout staticLayout = new StaticLayout(cardStyleInfo.introduction, paint, textMaxWidth, Layout.Alignment.ALIGN_NORMAL, 1, 6, true);
+            StaticLayout staticLayout = new StaticLayout(cardStyleInfo.introduction, paint, textMaxWidth, Layout.Alignment.ALIGN_NORMAL, 1, 6, false);
             canvas.save();
-            canvas.translate(186, 555 + nickNameBaseLine);
+            canvas.translate(160, 555 + nickNameBaseLine);
             staticLayout.draw(canvas);
             canvas.restore();
+
+
+            //作者
+            if (!TextUtils.isEmpty(cardStyleInfo.author)) {
+                if(!cardStyleInfo.author.contains("——")){
+                    cardStyleInfo.author = "——" + cardStyleInfo.author;
+                }
+                //简介
+                paint.setColor(Color.parseColor("#7c7c7c"));
+                paint.setTextSize(30);
+                paint.setFakeBoldText(false);
+                paint.setTextAlign(Paint.Align.RIGHT);
+                //获取 baseline
+                int authorBaseLine = getTextBaseLine(paint, cardStyleInfo.author);
+                float authorLeft = resultWidth - 150;
+                canvas.drawText(cardStyleInfo.author, authorLeft, 570 + nickNameBaseLine + authorBaseLine + staticLayout.getHeight(), paint);
+            }
         }
 
 
@@ -139,7 +155,7 @@ public class BitmapUtil {
         int qrLeft = qrRight - 150;
         int qrBottom = resultHeight - 120;
         int qrTop = qrBottom - 150;
-        String qrcodeUrl = TextUtils.isEmpty(cardStyleInfo.qrUrl) ? "---今天很懒,没有要分享的东西---" : cardStyleInfo.qrUrl;
+        String qrcodeUrl = TextUtils.isEmpty(cardStyleInfo.qrUrl) ? "---今天没有分享的彩蛋---" : cardStyleInfo.qrUrl;
         Bitmap qrCodeBitmap = getQrCode(qrcodeUrl, 150, 150, BarcodeFormat.QR_CODE);
         Rect qrCodeSrcRect = new Rect(0, 0, qrCodeBitmap.getWidth(), qrCodeBitmap.getHeight());
         Rect qrCodeDesRect = new Rect(qrLeft, qrTop, qrRight, qrBottom);
@@ -150,6 +166,7 @@ public class BitmapUtil {
         String sign = "玩一下\n@tantiago";
         paint.setColor(Color.parseColor("#7c7c7c"));
         paint.setTextSize(18);
+        paint.setTextAlign(Paint.Align.LEFT);
         paint.setFakeBoldText(false);
         StaticLayout staticLayout = new StaticLayout(sign, paint, textMaxWidth, Layout.Alignment.ALIGN_NORMAL, 1, 7, true);
         canvas.save();
@@ -519,6 +536,12 @@ public class BitmapUtil {
             e.printStackTrace();
         }
         return url;
+    }
+
+    private static int getTextBaseLine(Paint paint, String text) {
+        Rect rect = new Rect();
+        paint.getTextBounds(text, 0, text.length(), rect);
+        return rect.height() - rect.bottom;
     }
 
 

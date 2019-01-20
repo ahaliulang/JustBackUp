@@ -1,4 +1,4 @@
-package com.ahaliulang.work;
+package com.ahaliulang.work.bean;
 
 import android.graphics.Bitmap;
 
